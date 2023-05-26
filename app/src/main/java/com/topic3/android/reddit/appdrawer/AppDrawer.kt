@@ -52,7 +52,32 @@ fun AppDrawer(
  */
 @Composable
 private fun AppDrawerHeader() {
-  //TODO add your code here
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    Image(
+      imageVector = Icons.Filled.AccountCircle,
+      colorFilter = ColorFilter.tint(Color.LightGray),
+      modifier = Modifier
+        .padding(16.dp)
+        .size(50.dp),
+      contentScale = ContentScale.Fit,
+      alignment = Alignment.Center,
+      contentDescription = stringResource(id = R.string.account)
+    )
+    Text(
+      text = stringResource(id = R.string.default_username),
+      color = MaterialTheme.colors.primaryVariant
+    )
+    ProfileInfo()
+  }
+  Divider(
+    color = MaterialTheme.colors.onSurface.copy(alpha = .2f),
+    modifier = Modifier.padding(
+      start = 16.dp, end = 16.dp, top = 16.dp
+    )
+  )
 }
 
 @Composable
