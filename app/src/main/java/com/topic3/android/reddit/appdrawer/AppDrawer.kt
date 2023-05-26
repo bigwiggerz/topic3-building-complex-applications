@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Icon
+import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.material.Divider
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -81,8 +84,9 @@ private fun AppDrawerHeader() {
 }
 
 @Composable
-fun ProfileInfo() {
-  //TODO add your code here
+fun ProfileInfo(modifier: Modifier = Modifier) {
+
+
 }
 
 @Composable
@@ -92,8 +96,50 @@ private fun ProfileInfoItem(
   textResourceId: Int,
   modifier: Modifier
 ) {
-  //TODO add your code here
+  val colors = MaterialTheme.colors
+
+  ConstraintLayout(modifier = modifier) {
+    val (iconRef, amountRef, titleRef) = createRefs()
+    val itemModifier = Modifier
+
+    Icon(
+      contentDescription = stringResource(id = textResourceId),
+      imageVector = iconAsset,
+      tint = Color.Blue,
+      modifier = itemModifier
+        .constrainAs(iconRef) {
+          centerVerticallyTo(parent)
+          start.linkTo(parent.start)
+        }
+        .padding(start = 16.dp)
+    )
+    Text(
+      text = stringResource(amountResourceId),
+      color = colors.primaryVariant,
+      fontSize = 10.sp,
+      modifier = itemModifier
+        .padding(start = 8.dp)
+        .constrainAs(amountRef) {
+          top.linkTo(iconRef.top)
+          start.linkTo(iconRef.end)
+          bottom.linkTo(titleRef.top)
+        }
+    )
+    Text(
+      text = stringResource(textResourceId),
+      color = Color.Gray,
+      fontSize = 10.sp,
+      modifier = itemModifier
+        .padding(start = 8.dp)
+        .constrainAs(titleRef) {
+          top.linkTo(amountRef.bottom)
+          start.linkTo(iconRef.end)
+          bottom.linkTo(iconRef.bottom)
+        }
+    )
+  }
 }
+
 
 /**
  * Представляет действия drawer приложения:
